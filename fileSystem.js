@@ -49,8 +49,16 @@ class ProductManager {
         return existingIdProduct 
     }
 
-    updateProduct() {
-        
+    updateProduct(prodId, title, description, price, thumbnail, code, stock) {
+        const productToUpdate = this.getProductById(prodId)
+        productToUpdate.title = title
+        productToUpdate.description = description
+        productToUpdate.price = price
+        productToUpdate.thumbnail = thumbnail
+        productToUpdate.code = code
+        productToUpdate.stock = stock
+        fs.writeFileSync('productsDB.json', JSON.stringify(...productToUpdate), 'utf-8')
+        return `El producto ha sido actualizado con éxito.`
     }
 
     pushToJsonFile() {
@@ -77,4 +85,6 @@ console.log(products.addProduct({ title: 'Vela Sofía', description: 'Vela aroma
 //Prueba de que funciona la búsqueda de productos por id, y mensaje de error en caso de no encontrar el id buscado.
 console.log(products.getProductById(1))
 console.log(products.getProductById(7))
+
+console.log(products.updateProduct(1, "Título modificado", "Descripción actualizada", "Precio actualizado", "Thumbnail actualizado", 100, "code actualizado"))
 
