@@ -5,11 +5,13 @@ class ProductManager {
     constructor() {
         this.products = []
     }
-// Función que llama al array que guarda los productos. Inicialmente vacío.
+// Función que lee el archivo json en el cual se guardan los productos, ejecuta el "parse" para transformar el JSON a objeto y devuelve el array de objetos de productos contenidos el archivo JSON.
     getProducts() {
-        return this.products
+        const productsDB = fs.readFileSync('productsDB.json', 'utf-8')
+        const productsDBContent = JSON.parse(productsDB)
+        return productsDBContent
     }
-// Función que agrega los objetos de productos al array, validando el cumplimiento de las condiciones del desafío.
+// Función que agrega los objetos de productos al archivo JSON, validando previamente el cumplimiento de las condiciones del desafío.
     addProduct(product) {
         // Validación 1: Mensaje de error en caso de que no se completen todos los campos requeridos.
         if (!product.title ||
@@ -33,20 +35,26 @@ class ProductManager {
             product.id = this.products.length + 1
             this.products.push(product)
         }
-        fs.writeFileSync('products.json', JSON.stringify(this.products), 'utf-8')
+        this.pushToJsonFile()
         return `Producto: "${product.title}" agregado con éxito`
     }
-// Función que busca en el array que guarda los productos el producto que coincida con el id ingresado por argumento.
+// Función que busca en el archivo JSON que guarda los objetos de productos el producto que coincida con el id ingresado por argumento.
 // En caso de no existir un producto con el id ingresado por argumento se retorna un mensaje de error.
 // En caso de que exista un producto con el id ingresado por argumento se retorna el producto en cuestión.
     getProductById(prodId) {
-        const productsDB = fs.readFileSync('products.json', 'utf-8')
-        const productsDBContent = JSON.parse(productsDB)
-        const existingIdProduct = productsDBContent.find(prod => prod.id === prodId)
+        const existingIdProduct = this.getProducts().find(prod => prod.id === prodId)
         if(!existingIdProduct) {
             return 'Error. No existe un producto identificado con el id ingresado.' 
         }
         return existingIdProduct 
+    }
+
+    updateProduct() {
+        
+    }
+
+    pushToJsonFile() {
+        fs.writeFileSync('productsDB.json', JSON.stringify(this.products), 'utf-8')
     }
 }
 
