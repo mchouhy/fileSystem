@@ -5,10 +5,11 @@ const fs = require('fs')
 class ProductManager {
     constructor() {
         this.products = []
+        this.path = 'productsDB.json'
     }
     // Función que lee el archivo json en el cual se guardan los objetos de productos, ejecuta el "parse" para transformar el JSON a objeto y devuelve el array de objetos de productos contenidos el archivo JSON.
     getProducts() {
-        const productsDB = fs.readFileSync('productsDB.json', 'utf-8')
+        const productsDB = fs.readFileSync(this.path, 'utf-8')
         const productsDBContent = JSON.parse(productsDB)
         return productsDBContent
     }
@@ -52,7 +53,7 @@ class ProductManager {
     }
     // Función que actualiza las propiedades de los objetos de productos almacenados en el archivo JSON. Si no existe el producto que se pretende actualizar se devuelve un mensaje de error.
     updateProduct(prodId, title, description, price, thumbnail, code, stock) {
-        const productsDB = fs.readFileSync('productsDB.json', 'utf-8')
+        const productsDB = fs.readFileSync(this.path, 'utf-8')
         const productsDBParse = JSON.parse(productsDB)
         const updateProduct = productsDBParse.find(prod => prod.id === prodId)
 
@@ -64,7 +65,7 @@ class ProductManager {
             updateProduct.code = code
             updateProduct.stock = stock
             const updatedProductsJSON = JSON.stringify(productsDBParse, null, prodId)
-            fs.writeFileSync('productsDB.json', updatedProductsJSON, 'utf-8')
+            fs.writeFileSync(this.path, updatedProductsJSON, 'utf-8')
             return updateProduct
         } else {
             return 'Error. El producto que pretende actualizar no existe.'
@@ -72,14 +73,14 @@ class ProductManager {
     }
     // Función que elimina productos alojados en el archivo JSON y devuelve el listado de productos actualizados.
     deleteProduct(prodId) {
-        const productsDB = fs.readFileSync('productsDB.json', 'utf-8')
+        const productsDB = fs.readFileSync(this.path, 'utf-8')
         const productsDBParse = JSON.parse(productsDB)
         const existingProduct = productsDBParse.findIndex(prod => prod.id === prodId)
 
         if(existingProduct !== -1) {
             productsDBParse.splice(existingProduct, prodId)
             const updatedProductsJSON = JSON.stringify(productsDBParse, null, prodId)
-            fs.writeFileSync('productsDB.json', updatedProductsJSON, 'utf-8')
+            fs.writeFileSync(this.path, updatedProductsJSON, 'utf-8')
             return `El producto identificado con el id: ${existingProduct} ha sido eliminado con éxito y se ha actualizado el listado de productos.`
         } else {
             return 'Error. El producto que pretende eliminar no existe.'
@@ -87,7 +88,7 @@ class ProductManager {
     }
     // Función descripta en la línea de código 39.
     pushToJsonFile() {
-        fs.writeFileSync('productsDB.json', JSON.stringify(this.products), 'utf-8')
+        fs.writeFileSync(this.path, JSON.stringify(this.products), 'utf-8')
     }
 }
 
