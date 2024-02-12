@@ -131,7 +131,8 @@ class ProductManager {
       }
 }
 
-// PROCESO DE TESTING - MANEJADOR DE ARCHIVOS:
+// TESTING - MANEJADOR DE ARCHIVOS:
+// Se deja todos los pasos comentados para ir haciendo el testing secuencialmente, descomentando el siguiente en cada ejecución del programa. 
 
 // 1) Se crea una instancia de la clase “ProductManager”.
 const manager = new ProductManager();
@@ -140,16 +141,16 @@ const manager = new ProductManager();
 manager.getProducts()
 
 // 3) Se llama al método "addProduct", agregando con éxito el objeto al archivo json con un id generado automáticamente.
-manager.addProduct(
-      {
-            title: 'Mesa Goya',
-            description: 'Mesa circular de mármol carrara de 1x1',
-            price: '2000',
-            thumbnail: 'imagen de mesa goya',
-            stock: 200,
-            code: 'kwy266'
-      }
-)
+//  manager.addProduct(
+//        {
+//              title: 'Mesa Goya',
+//              description: 'Mesa circular de mármol carrara de 1x1',
+//              price: '2000',
+//              thumbnail: 'imagen de mesa goya',
+//              stock: 200,
+//              code: 'kwy266'
+//        }
+//  )
 
 // 3.1) Producto agregado con éxito con id generado automáticamente.
 // manager.addProduct(
@@ -164,16 +165,16 @@ manager.addProduct(
 // )
 
 // 3.2) Producto agregado con éxito con id generado automáticamente.
-// manager.addProduct(
-//       {
-//             title: 'Mesa Pampa',
-//             description: 'Mesa de petiribí de 3x2',
-//             price: '900',
-//             thumbnail: 'imagen de Mesa Pampa',
-//             stock: 200,
-//             code: 'xyt389'
-//       }
-// )
+//  manager.addProduct(
+//        {
+//              title: 'Mesa Pampa',
+//              description: 'Mesa de petiribí de 3x2',
+//              price: '900',
+//              thumbnail: 'imagen de Mesa Pampa',
+//              stock: 200,
+//              code: 'xyt389'
+//        }
+//  )
 
 // 3.3) Validación #1: producto al que le faltan campos por completar para que se ejecute el mensaje de error de la "validación 1". En este caso faltaría el "code".
 // manager.addProduct(
@@ -206,19 +207,19 @@ manager.addProduct(
 // manager.getProductById(7)
 
 // 6) Prueba de que funciona la actualización de productos por id, y mensaje de error en caso de que no exista el producto a actualizar.
-// manager.updateProduct(1,
-//       {
-//             title: 'título actualizado',
-//             code: 'código actualizado'
-//       }
-// )
-// manager.updateProduct(12,
-//       {
-//             title: 'título actualizado',
-//             code: 'código actualizado'
-//       }
-// )
+//manager.updateProduct(1,
+//      {
+//            title: 'título actualizado',
+//            code: 'código actualizado'
+//      }
+//)
+//manager.updateProduct(12,
+//      {
+//            title: 'título actualizado',
+//            code: 'código actualizado'
+//      }
+//)
 
 // 7) Prueba de que funciona la eliminación de productos por id, y mensaje de error en caso de que no exista el producto a eliminar.
-//manager.deleteProductById(3)
-//manager.deleteProductById(24)
+// manager.deleteProductById(3)
+// manager.deleteProductById(24)
